@@ -12,51 +12,23 @@ module.exports = function() {
 
   this.When(/^I click on Plans link$/, { timeout: 30 * 1000 }, (callback) => {
     page.clickPlansLink().then(callback);
-    //browser.sleep(1000);
   })
 
-  this.When(/^I scroll down to the price slider$/, () => {
-    page.scrollTo(831,2700);
+  this.When(/^I scroll down to the price slider$/, (callback) => {
+    page.scrollTo(831,2700).then(callback);
   })
 
   this.When(/^I drag the slider to the tick "([^"]*)"$/, (tick) => {
     page.dragSliderToTick(tick);
   })
 
-  this.Then(/^I should see that the price is "([^"]*)"$/, (expectedPrice) => {
+  this.Then(/^I should see that the price is "([^"]*)"$/, (expectedPrice, callback) => {
     page.getLinePrice().then((text) => {
       expect(text).to.eql(expectedPrice);
-    })
+    }).then(callback);
   })
 
-  this.When(/^I click the Start shopping link$/, () => {
-    page.clickStartShoppingLink();
+  this.When(/^I click the Start shopping link$/, (callback) => {
+    page.clickStartShoppingLink().then(callback);
   })
-
-  /*this.When('I calculate $first $operator $second', function (first, operator, second, callback) {
-    this.page.setFirstValue(first);
-    this.page.setOperator(operator);
-    this.page.setSecondValue(second);
-    this.page.clickGo();
-    callback();
-  });
-
-  this.When('I enter first value of $first', function (first, callback) {
-    this.page.setFirstValue(first);
-    callback();
-  });
-
-  this.When('I enter second value of $second', function (second, callback) {
-    this.page.setSecondValue(second);
-    callback();
-  });
-
-  this.When('I click Go', function (callback) {
-    this.page.clickGo();
-    callback();
-  });
-
-  this.Then('the result should equal $result', function (result, callback) {
-    expect(this.page.getResult()).to.eventually.equal(result).and.notify(callback);
-  });*/
 };
