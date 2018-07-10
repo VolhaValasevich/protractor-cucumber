@@ -22,10 +22,29 @@ class TMobilePage {
         return element(by.linkText('Start shopping')).click();
     }
 
+    highlightPrice() {
+        return this.highlightWithJS(element(by.css("div.price-container.active div.price")));
+    }
+
     getLinePrice () {
         return element(by.css("div.price-container.active div.price")).getText();
     }
 
+    // code from demo 3
+    highlightWithJS(el) {
+        let bg;
+        return el.getCssValue("backgroundColor").then(function (col) {
+            bg = col;
+        }).then(function () {
+            return browser.executeScript("arguments[0].style.backgroundColor = '" + "red" + "'", el)
+        }).then(function () {
+            return browser.sleep(1000);
+        }).then(function () {
+            return browser.executeScript("arguments[0].style.backgroundColor = '" + bg + "'", el);
+        }).then(function () {
+            return browser.sleep(1000);
+        })
+    }
 }
 
 module.exports = TMobilePage;

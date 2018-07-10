@@ -22,6 +22,10 @@ module.exports = function() {
     page.dragSliderToTick(tick);
   })
 
+  this.When(/^I should see the new price$/, (callback) => {
+    page.highlightPrice().then(callback);
+  })
+
   this.Then(/^I should see that the price is "([^"]*)"$/, (expectedPrice, callback) => {
     page.getLinePrice().then((text) => {
       expect(text).to.eql(expectedPrice);
