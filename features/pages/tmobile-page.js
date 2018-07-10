@@ -15,7 +15,15 @@ class TMobilePage {
     }
 
     dragSliderToTick (pos) {
-        return browser.actions().dragAndDrop(element(by.css('input.slider-range')), element(by.css(`div.item-alt-${pos}`))).mouseUp().perform();     
+        switch (pos) {
+            case "second":  case "third" : {
+                return browser.actions().dragAndDrop(element(by.css('input.slider-range')), element(by.css(`div.${pos}-tick`))).mouseUp().perform();
+            }
+            case "first": {
+                return browser.actions().dragAndDrop(element(by.css('input.slider-range')), element(by.css(`div.item-alt-one`))).mouseUp().perform();
+            }
+            case "fourth" : break;
+        }     
     }
 
     clickStartShoppingLink () {
